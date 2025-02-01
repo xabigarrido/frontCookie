@@ -3,7 +3,7 @@ import axios from "axios";
 
 function App() {
   const [user, setUser] = useState([]);
-  const API = "http://localhost:3000";
+  const API = "https://backendcookie.onrender.com";
   const obtenJson = async () => {
     const res = await axios.get(API);
   };
