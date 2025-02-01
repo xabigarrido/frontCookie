@@ -35,7 +35,7 @@ function App() {
       <button onClick={obtenCookie}>Obtener</button>
       <button onClick={verCookie}>Ver</button>
       <button onClick={eliminarCookie}>Eliminar</button>
-      {user && <p>user</p>}
+      {user && <p>{user}</p>}
     </div>
   );
 }
