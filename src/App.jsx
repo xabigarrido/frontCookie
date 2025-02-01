@@ -18,6 +18,7 @@ function App() {
       withCredentials: true,
     });
     setUser(res);
+    console.log(res);
   };
   const eliminarCookie = async () => {
     const res = await axios.get(`${API}/deletecookie`, {
@@ -34,6 +35,7 @@ function App() {
       <button onClick={obtenCookie}>Obtener</button>
       <button onClick={verCookie}>Ver</button>
       <button onClick={eliminarCookie}>Eliminar</button>
+      {user && <p>user</p>}
     </div>
   );
 }
