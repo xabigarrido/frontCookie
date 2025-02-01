@@ -17,7 +17,7 @@ function App() {
     const res = await axios.get(`${API}/getcookie`, {
       withCredentials: true,
     });
-    console.log(res);
+    setUser(res);
   };
   const eliminarCookie = async () => {
     const res = await axios.get(`${API}/deletecookie`, {
