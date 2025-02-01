@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 function App() {
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState("");
   const API = "https://backendcookie.onrender.com";
   const obtenJson = async () => {
     const res = await axios.get(API);
@@ -17,6 +17,7 @@ function App() {
     const res = await axios.get(`${API}/getcookie`, {
       withCredentials: true,
     });
+    setUser(res.data);
     console.log(res);
   };
   const eliminarCookie = async () => {
