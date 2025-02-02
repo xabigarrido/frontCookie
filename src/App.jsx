@@ -8,12 +8,9 @@ function App() {
 
   const obtenCookie = async () => {
     try {
-      // Establece la cookie desde el backend
-      const res = await axios.get(`${API}/setcookie`, {
-        withCredentials: true, // Necesario para enviar cookies entre dominios
-      });
-      // Al establecerla, intentamos leer la cookie desde js-cookie
-      const value = Cookies.get("xabiToken");
+      await axios.get(`${API}/setcookie`, { withCredentials: true });
+      const value = Cookies.get("xabiToken"); // Intenta leer la cookie almacenada
+      if (value) setUser(value);
     } catch (error) {
       console.error("Error al obtener la cookie:", error);
     }
@@ -21,12 +18,11 @@ function App() {
 
   const verCookie = async () => {
     try {
-      // Verifica la cookie desde el backend
       const res = await axios.get(`${API}/getcookie`, {
         withCredentials: true,
       });
       console.log("Respuesta del servidor:", res.data);
-      setUser(res.data); // Actualiza el estado con la respuesta del servidor
+      setUser(res.data); // Actualiza el estado con la respuesta del backend
     } catch (error) {
       console.error("Error al ver la cookie:", error);
     }
@@ -34,35 +30,41 @@ function App() {
 
   const eliminarCookie = async () => {
     try {
-      // Elimina la cookie desde el backend
-      const res = await axios.get(`${API}/deletecookie`, {
-        withCredentials: true,
-      });
-      console.log("Cookie eliminada", res);
-      setUser("Cookie eliminada"); // Restablece el estado de user
+      await axios.get(`${API}/deletecookie`, { withCredentials: true });
+      Cookies.remove("xabiToken"); // Elimina la cookie del navegador
+      setUser(""); // Limpia el estado
     } catch (error) {
       console.error("Error al eliminar la cookie:", error);
     }
   };
 
-  // Verifica si la cookie está disponible al cargar el componente
   useEffect(() => {
-    const cookieValue = Cookies.get("xabiToken"); // Obtiene la cookie desde js-cookie
-    if (cookieValue) {
-      console.log("Cookie encontrada en useEffect:", cookieValue);
-      setUser(cookieValue); // Si la cookie está disponible, actualiza el estado
-    } else {
-      console.log("No hay cookie en useEffect");
-      setUser("No hay cookie en useEffect"); // Si no hay cookie, muestra un mensaje
-    }
-  }, [cookieValue]); // Este efecto se ejecuta una vez al cargar el componente
+    const checkCookie = async () => {
+      try {
+        const cookieValue = Cookies.get("xabiToken");
+        if (cookieValue) {
+          setUser(cookieValue);
+        } else {
+          // Si no está en el cliente, intentamos obtenerla del backend
+          const res = await axios.get(`${API}/getcookie`, {
+            withCredentials: true,
+          });
+          if (res.data) setUser(res.data);
+        }
+      } catch (error) {
+        console.error("Error al verificar la cookie en useEffect:", error);
+      }
+    };
+
+    checkCookie();
+  }, []); // Se ejecuta al montar el componente
 
   return (
     <div>
       <button onClick={obtenCookie}>Obtener Cookie</button>
       <button onClick={verCookie}>Ver Cookie</button>
       <button onClick={eliminarCookie}>Eliminar Cookie</button>
-      {user && <p>Cookie: {user}</p>} {/* Muestra la cookie en la interfaz */}
+      {user && <p>Cookie: {user}</p>}
     </div>
   );
 }
