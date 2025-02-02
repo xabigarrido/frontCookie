@@ -14,8 +14,10 @@ function App() {
       });
       // Al establecerla, intentamos leer la cookie desde js-cookie
       const value = Cookies.get("xabiToken");
-      console.log("Cookie obtenida:", value); // Verifica si la cookie se obtiene
-      setUser(value); // Actualiza el estado con el valor de la cookie
+      if (value) {
+        console.log("Cookie obtenida:", value); // Verifica si la cookie se obtiene
+        setUser(value); // Actualiza el estado con el valor de la cookie
+      }
     } catch (error) {
       console.error("Error al obtener la cookie:", error);
     }
