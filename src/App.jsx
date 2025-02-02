@@ -12,6 +12,7 @@ function App() {
       withCredentials: true,
     });
     const value = Cookies.get("xabiToken");
+    console.log(value);
     setUser(value);
   };
   const verCookie = async () => {
