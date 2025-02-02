@@ -12,6 +12,7 @@ function App() {
       withCredentials: true,
     });
     console.log(res);
+    setUser(res.data);
   };
   const verCookie = async () => {
     const res = await axios.get(`${API}/getcookie`, {
@@ -25,6 +26,7 @@ function App() {
       withCredentials: true,
     });
     console.log(res);
+    setUser("");
   };
 
   useEffect(() => {
