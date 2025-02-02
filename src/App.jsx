@@ -10,6 +10,7 @@ function App() {
     try {
       await axios.get(`${API}/setcookie`, { withCredentials: true });
       const value = Cookies.get("xabiToken"); // Intenta leer la cookie almacenada
+      console.log(value);
       if (value) setUser(value);
     } catch (error) {
       console.error("Error al obtener la cookie:", error);
