@@ -11,7 +11,6 @@ function App() {
       await axios.get(`${API}/setcookie`, { withCredentials: true });
       const value = Cookies.get("xabiToken"); // Intenta leer la cookie almacenada
       checkCookie();
-      console.log(value);
       if (value) setUser(value);
     } catch (error) {
       console.error("Error al obtener la cookie:", error);
@@ -66,6 +65,7 @@ function App() {
       <button onClick={verCookie}>Ver Cookie</button>
       <button onClick={eliminarCookie}>Eliminar Cookie</button>
       {user && <p>Cookie: {user}</p>}
+      {user ? <>Bienvenido {user}</> : <>¿Eres nuevo registrate?</>}
     </div>
   );
 }
