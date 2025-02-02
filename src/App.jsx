@@ -33,7 +33,7 @@ function App() {
   useEffect(() => {
     setUser("Primera carga");
     if (Cookies.get("xabiToken")) {
-      console.log(Cookies.get("xabiToken"));
+      setUser(Cookies.get("xabiToken"));
     }
     // obtenJson();
   }, []);
