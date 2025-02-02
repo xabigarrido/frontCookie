@@ -35,7 +35,7 @@ function App() {
       console.log(Cookies.get("xabiToken"));
     }
     // obtenJson();
-  });
+  }, []);
   return (
     <div>
       <button onClick={obtenCookie}>Obtener</button>
