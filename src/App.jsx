@@ -65,7 +65,11 @@ function App() {
       <button onClick={verCookie}>Ver Cookie</button>
       <button onClick={eliminarCookie}>Eliminar Cookie</button>
       {user && <p>Cookie: {user}</p>}
-      {user !== "" ? <>Bienvenido {user}</> : <>¿Eres nuevo registrate?</>}
+      {user !== "NO HAY COOKIE" ? (
+        <>Bienvenido {user}</>
+      ) : (
+        <>¿Eres nuevo registrate?</>
+      )}
     </div>
   );
 }
