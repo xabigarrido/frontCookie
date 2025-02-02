@@ -51,7 +51,7 @@ function App() {
       setUser(cookieValue); // Si la cookie está disponible, actualiza el estado
     } else {
       console.log("No hay cookie en useEffect");
-      setUser(""); // Si no hay cookie, establece un valor vacío o el valor por defecto
+      setUser("No hay cookie en useEffect"); // Si no hay cookie, establece un valor vacío o el valor por defecto
     }
   }, []); // Este efecto se ejecuta una vez al cargar el componente
 
