@@ -10,8 +10,8 @@ function App() {
     try {
       await axios.get(`${API}/setcookie`, { withCredentials: true });
       const value = Cookies.get("xabiToken"); // Intenta leer la cookie almacenada
-      console.log(value);
       checkCookie();
+      console.log(value);
       if (value) setUser(value);
     } catch (error) {
       console.error("Error al obtener la cookie:", error);
@@ -35,6 +35,7 @@ function App() {
       await axios.get(`${API}/deletecookie`, { withCredentials: true });
       Cookies.remove("xabiToken"); // Elimina la cookie del navegador
       setUser(""); // Limpia el estado
+      checkCookie();
     } catch (error) {
       console.error("Error al eliminar la cookie:", error);
     }
