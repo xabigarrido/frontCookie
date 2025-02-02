@@ -46,6 +46,7 @@ function App() {
   // Verifica si la cookie está disponible al cargar el componente
   useEffect(() => {
     const cookieValue = Cookies.get("xabiToken");
+    setUser("Primera carga no tengo cookie");
     if (cookieValue) {
       console.log("Cookie encontrada en useEffect:", cookieValue);
       setUser(cookieValue);
