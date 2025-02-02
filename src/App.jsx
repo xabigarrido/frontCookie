@@ -14,10 +14,6 @@ function App() {
       });
       // Al establecerla, intentamos leer la cookie desde js-cookie
       const value = Cookies.get("xabiToken");
-      if (value) {
-        console.log("Cookie obtenida:", value); // Verifica si la cookie se obtiene
-        setUser(value); // Actualiza el estado con el valor de la cookie
-      }
     } catch (error) {
       console.error("Error al obtener la cookie:", error);
     }
@@ -59,7 +55,7 @@ function App() {
       console.log("No hay cookie en useEffect");
       setUser("No hay cookie en useEffect"); // Si no hay cookie, muestra un mensaje
     }
-  }, []); // Este efecto se ejecuta una vez al cargar el componente
+  }, [cookieValue]); // Este efecto se ejecuta una vez al cargar el componente
 
   return (
     <div>
