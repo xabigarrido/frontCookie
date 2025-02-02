@@ -41,7 +41,7 @@ function App() {
         withCredentials: true,
       });
       console.log("Cookie eliminada", res);
-      setUser(""); // Restablece el estado de user
+      setUser("Cookie eliminada"); // Restablece el estado de user
     } catch (error) {
       console.error("Error al eliminar la cookie:", error);
     }
