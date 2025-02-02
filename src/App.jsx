@@ -1,42 +1,57 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
+
 function App() {
   const [user, setUser] = useState("");
   const API = "https://backendcookie.onrender.com";
-  const obtenJson = async () => {
-    const res = await axios.get(API);
-  };
+
   const obtenCookie = async () => {
-    const res = await axios.get(`${API}/setcookie`, {
-      withCredentials: true,
-    });
-    const value = Cookies.get("xabiToken");
-    console.log(value);
-    setUser(value);
-  };
-  const verCookie = async () => {
-    const res = await axios.get(`${API}/getcookie`, {
-      withCredentials: true,
-    });
-    setUser(res.data);
-    console.log(res);
-  };
-  const eliminarCookie = async () => {
-    const res = await axios.get(`${API}/deletecookie`, {
-      withCredentials: true,
-    });
-    console.log(res);
-    setUser("");
+    try {
+      const res = await axios.get(`${API}/setcookie`, {
+        withCredentials: true,
+      });
+      const value = Cookies.get("xabiToken");
+      console.log("Cookie obtenida:", value); // Verifica si se obtiene la cookie
+      setUser(value); // Si la cookie está disponible, actualiza el estado
+    } catch (error) {
+      console.error("Error al obtener la cookie:", error);
+    }
   };
 
-  useEffect(() => {
-    setUser("Primera carga");
-    if (Cookies.get("xabiToken")) {
-      setUser(Cookies.get("xabiToken"));
+  const verCookie = async () => {
+    try {
+      const res = await axios.get(`${API}/getcookie`, {
+        withCredentials: true,
+      });
+      console.log(res); // Verifica la respuesta del servidor
+      setUser(res.data); // Actualiza el estado con la respuesta del servidor
+    } catch (error) {
+      console.error("Error al ver la cookie:", error);
     }
-    // obtenJson();
+  };
+
+  const eliminarCookie = async () => {
+    try {
+      const res = await axios.get(`${API}/deletecookie`, {
+        withCredentials: true,
+      });
+      console.log("Cookie eliminada", res);
+      setUser(""); // Restablece el estado de user
+    } catch (error) {
+      console.error("Error al eliminar la cookie:", error);
+    }
+  };
+
+  // Verifica si la cookie está disponible al cargar el componente
+  useEffect(() => {
+    const cookieValue = Cookies.get("xabiToken");
+    if (cookieValue) {
+      console.log("Cookie encontrada en useEffect:", cookieValue);
+      setUser(cookieValue);
+    }
   }, []);
+
   return (
     <div>
       <button onClick={obtenCookie}>Obtener</button>
