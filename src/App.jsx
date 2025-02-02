@@ -31,6 +31,9 @@ function App() {
   };
 
   useEffect(() => {
+    if (Cookies.get("xabiToken")) {
+      console.log(Cookies.get("xabiToken"));
+    }
     // obtenJson();
   });
   return (
