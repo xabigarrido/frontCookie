@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
+import Cookies from "js-cookie";
 function App() {
   const [user, setUser] = useState("");
   const API = "https://backendcookie.onrender.com";
@@ -11,8 +11,8 @@ function App() {
     const res = await axios.get(`${API}/setcookie`, {
       withCredentials: true,
     });
-    console.log(res);
-    setUser(res.data);
+    const value = Cookies.get("xabiToken");
+    setUser(value);
   };
   const verCookie = async () => {
     const res = await axios.get(`${API}/getcookie`, {
